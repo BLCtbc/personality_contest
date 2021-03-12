@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_styles %}
+<link media='screen, print' rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
+{% endblock extra_styles %}
+
+{% block splash %}
+<div class="container" style="padding: 100px 0 20px 0;">
+    <div class="image-container">
+        <img id="band_photo" src="{% static "img/personality_contest_large.jpg" %}">
+    </div>
+</div>
+{% endblock splash %}
+
+{% block main_content %}
+<div class="container-fluid" id="music_links">
+    <div class="row justify-content-center">
+        <div>
+            <iframe class='spotify' src="https://open.spotify.com/embed/track/2QSqzDkSY6eiYhlSu2cfjq" width="300" height="80" frameborder="1" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
+
+    </div>
+    <div class="row justify-content-center">
+        <div class="music-links-item">
+            <a href="https://music.apple.com/us/artist/personality-contest/1495990921?itsct=music_box&amp;itscg=30200&amp;ct=artists_personality_contest&amp;app=music&amp;ls=1"
+                style="display: inline-block; border-radius: 13px; width: 130px; height: 40px;">
+                <img src="{% static "img/itunes-get.svg" %}" alt="Get it on iTunes" style="border-radius: 13px; width: 130px; height: 40px;">
+            </a>
+        </div>
+        <div class="music-links-item">
+            <a href="https://music.apple.com/us/artist/personality-contest/1495990921?itsct=music_box&amp;itscg=30200&amp;ct=artists_personality_contest&amp;app=music&amp;ls=1"
+                style="display: inline-block; border-radius: 13px; width: 150px; height: 40px;">
+                <img src="{% static "img/apple-music.svg" %}" alt="Listen on Apple Music" style="border-radius: 13px; width: 150px; height: 40px;">
+            </a>
+        </div>
+    </div>
+</div> <!-- /container -->
+{% endblock main_content %}
+{% block band_bio %}
+{% endblock band_bio %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Contact Us</title>
+{% endblock title %}
+
+{% block extra_styles %}
+<link media='screen, print' rel="stylesheet" type="text/css" href="{% static "css/contact.css" %}">
+{% endblock extra_styles %}
+
+{% block main_content %}
+<div class="atx">
+    <div class="container">
+        <form id="contact">
+            <h3 class="fancy say-hello">Say Hello</h3>
+            <div class="form-row">
+              <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
+              <input type="text" class="form-control form-control-sm" id="nameInput" placeholder="Name">
+            </div>
+            <div class="form-row">
+              <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
+              <input type="email" class="form-control form-control-sm" id="emailInput" placeholder="Email">
+            </div>
+            <div class="form-row">
+              <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
+              <input type="text" class="form-control form-control-sm" id="subjectInput" placeholder="Subject">
+            </div>
+            <div class="form-row">
+              <!-- <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> -->
+              <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Message" rows="4"></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock main_content %}
