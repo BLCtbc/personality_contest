@@ -1,3 +1,5 @@
+
+
 html {
     -webkit-font-smoothing: antialiased;
 }
@@ -6,12 +8,19 @@ body {
   /* padding-top: 3.5rem; */
   font-family: "Gotham HTF", Helvetica, sans-serif;
   text-align: center;
-  background-color: rgb(11 21 29);
+  background-color: rgb(0, 0, 0);
 
 }
 
 input {
     font-family: Helvetica;
+}
+main {
+    background: repeating-linear-gradient(#0202521c, #3b056d26, #0202521c 25%);
+}
+
+main button {
+    border-radius: 1px;
 }
 
 @font-face {
@@ -56,9 +65,9 @@ input {
 }
 
 nav {
-    background-color: rgba(3, 11, 21, 0.9);
+    background-color: rgba(0, 0, 0, 0.9);
     color: azure;
-    border-bottom: 3px solid wheat;
+    border-bottom: 5px solid wheat;
 
 }
 footer {
@@ -178,19 +187,31 @@ footer {
 #mailing_list_email {
     background-color: transparent;
     border-color: wheat;
+    color: white;
 }
 
-#mailing_list_submit {
+#mailing_list_submit, #email_popup_trigger {
+    border-radius: 1px;
     background-color: transparent;
     border-color: white;
     color: white;
     transition: all 333ms ease;
 }
 
-#mailing_list_submit:hover {
+#mailing_list_submit:hover, #email_popup_trigger:hover {
     background-color: white;
     border-color: white;
     color: black;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+}
+
+#band_photo {
+    /* width: 100%; */
+    flex: none;
 }
 
 .image-container::after {

@@ -5,11 +5,7 @@
 {% endblock extra_styles %}
 
 {% block splash %}
-<div class="container" style="padding: 100px 0 20px 0;">
-    <div class="image-container">
-        <img id="band_photo" src="{% static "img/personality_contest_large.jpg" %}">
-    </div>
-</div>
+{{block.super}}
 {% endblock splash %}
 
 {% block main_content %}

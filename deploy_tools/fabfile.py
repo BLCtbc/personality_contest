@@ -2,7 +2,7 @@ from fabric.contrib.files import exists
 from fabric.api import cd, env, local, run
 import os
 
-REPO_URL = ''
+REPO_URL = 'https://github.com/BLCtbc/personality_contest'
 
 def deploy():
     sitename = os.getenv('SITENAME')

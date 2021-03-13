@@ -16,11 +16,11 @@
     background-color: unset;
 }
 
-#emailSignupModal * {
+#email_signup_modal * {
     border-radius: 1px;
 }
 
-#emailSignupModal .modal-content {
+#email_signup_modal .modal-content {
     outline: 20px solid whitesmoke;
     background-image: url("../img/dat_boi.gif");
     background-size: contain;
@@ -29,18 +29,18 @@
     border: 4px solid rgba(0, 0, 0, 0.2);
 }
 
-#emailSignupModal .modal-header {
+#email_signup_modal .modal-header {
     border-bottom: none;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
 
-#emailSignupModal .modal-footer {
+#email_signup_modal .modal-footer {
     border-top: none;
     margin: 0.75rem
     padding: none;
 }
-#emailSignupModal .modal-dialog {
+#email_signup_modal .modal-dialog {
     position: absolute;
     right: 20px;
     top: 50%;
@@ -65,12 +65,8 @@
     padding: 50px 0;
 }
 
-#music_links {
-    background: linear-gradient(transparent, #0000802b, #00000000);
-}
-
 .spotify {
-    border-color: whitesmoke;
+    border-color: whitesmoken;
     border-style: outset;
     margin: 10px 0;
 }

@@ -24,6 +24,7 @@ Provisioning new site
 - create django project (if not pulled from repo)
 - `django-admin startproject SITENAME .`
     - `python manage.py startapp APPNAME`
+-
 
 ```
 $ sudo apt-get install nginx memcached git certbot-nginx certbot fail2ban postgresql
@@ -41,7 +42,22 @@ test:
 ```
 $ echo $SITENAME
 ```
-#### installing python 3.6.9 on Debian:
+
+### installing Python 3.6.x
+
+##### Raspbian (Originally followed [these instructions](https://installvirtual.com/install-python-3-on-raspberry-pi-raspbian/)):
+
+```
+$ sudo apt-get update
+$ sudo apt-get install -y build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev
+$ wget https://www.python.org/ftp/python/3.6.11/Python-3.6.11.tgz
+$ sudo tar -xvf Python-3.6.8.tgz
+$ cd Python-3.6.8
+$ sudo ./configure --with-ensurepip=install
+$ sudo make && sudo make install
+```
+
+##### Debian:
 
 ```
 $ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
@@ -54,8 +70,27 @@ $ cd Python-3.6.9
 $ ./configure --with-ensurepip=install
 $ sudo make && sudo make install
 ```
+##### make python3.6.x the default
+```
+$ nano ~/.bashrc
+```
+add the following line:
+```
+alias python='/usr/local/bin/python3.6'
+```
+then source the .bashrc file:
+```
+$ source ~/.bashrc
 
-#### set python3.6.9 as default for  `python3`
+```
+test:
+```
+$ python
+Python 3.6.8 (default, Mar 12 2021, 12:00:25)
+[GCC 6.3.0 20170516] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+```
+##### set python3.6.9 as default for  `python3` (old)
 ```
 $ sudo update-alternatives --install /usr/bin/python3 python3 ~/Python-3.6.9/python 10
 ```

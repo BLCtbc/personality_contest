@@ -42,13 +42,21 @@
 
 
 {% block modal %}
+<div class="container-fluid">
+    <div class="row justify-content-end">
+    <button id="email_popup_trigger" type="button" class="btn btn-sm" data-toggle="modal" data-target="#email_signup_modal">
+      EMAIL POPUP
+    </button>
+</div>
+</div>
 
-<div class="modal fade" id="emailSignupModal" data-backdrop="false"
-    tabindex="-1" aria-labelledby="emailSignupModalLabel" aria-hidden="true">
+<div class="container-fluid">
+<div class="modal fade" id="email_signup_modal" data-backdrop="false"
+    tabindex="-1" aria-labelledby="email_signup_modal_Label" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Oh shit, waddup?</h4>
+        <h4 class="modal-title">Oh shit, waddup??????</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -79,27 +87,29 @@
     </div>
   </div>
 </div>
+</div>
 {% endblock modal %}
 
 <div class="container-fluid" style="width: 90%; border-bottom: 10px solid wheat; padding: 20px 0;">
     <div class="row"></div>
 </div>
 
-    </main>
-    <footer class="container-fluid">
-        <div>
-            <form id="mailing_list" class="form-inline">
-                <label class="sr-only" for="inlineFormInputName2">Enter Email Address</label>
-                <input type="email" class="form-control form-control-sm mb-2 mr-sm-2" id="mailing_list_email" placeholder="Enter Email Address">
-                <button type="submit" class="btn btn-sm mb-2" id="mailing_list_submit">Join the Mailing List</button>
-            </form>
-        </div>
-    <div class="policies">
-        <a class="privacy-policy" href="">Cookie Policy</a>
-        <span> | </span>
-        <a class="privacy-policy" href="">Privacy Policy</a>
+<footer class="container-fluid">
+    <div>
+        <form id="mailing_list" class="form-inline">
+            <label class="sr-only" for="inlineFormInputName2">Enter Email Address</label>
+            <input type="email" class="form-control form-control-sm mb-2 mr-sm-2" id="mailing_list_email" placeholder="Enter Email Address">
+            <button type="submit" class="btn btn-sm mb-2" id="mailing_list_submit">Join the Mailing List</button>
+        </form>
     </div>
-    </footer>
+<div class="policies">
+    <a class="privacy-policy" href="">Cookie Policy</a>
+    <span> | </span>
+    <a class="privacy-policy" href="">Privacy Policy</a>
+</div>
+</footer>
+    </main>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
