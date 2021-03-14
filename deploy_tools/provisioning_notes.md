@@ -16,7 +16,8 @@ Provisioning new site
 
 - install various essential packages/libraries (nginx, python3.6.x, memcached)
 - setup virtual env
-- set SITENAME, USERNAME, and PROJECTNAME env vars in venv source file (typically here: /venv/bin/activate)
+- set SITENAME, USERNAME, and PROJECTNAME env vars in venv source file (typically here: /venv/bin/activate) or set them as an environment var using bash `$ export var=123`
+
 - run virtual env
 - install python libraries in requirements.txt
 - open fabfile and edit repo REPO_URL
@@ -26,21 +27,49 @@ Provisioning new site
     - `python manage.py startapp APPNAME`
 -
 
+#### install packages
 ```
 $ sudo apt-get install nginx memcached git certbot-nginx certbot fail2ban postgresql
+$ sudo aptitude install logrotate
 ```
 
 #### Environment variables for use with the sed command throughout setup
 
-`SITENAME` should be the actual website address, `USERNAME` should be the same as
-the username account on the server/system, and `PROJECTNAME` should be the name of the Django project
+`SITENAME` should be the actual website address and `PROJECTNAME` should be the name of the Django project
 
 ```
-$ export SITENAME=www.example.com USERNAME=myusername PROJECTNAME=example
+$ export SITENAME=www.example.com PROJECTNAME=website.com
 ```
 test:
 ```
 $ echo $SITENAME
+```
+####
+setup config files for nginx/gunicorn/logrotate:
+
+change folder and create copies
+```
+$ cd ~/$SITENAME/deploy_tools
+$ sudo cp nginx.template.conf nginx.$SITENAME.conf && cp gunicorn-SITENAME.template.service gunicorn-$SITENAME.service && cp logrotate.template.conf logrotate.$SITENAME.conf
+```
+replaces occurrences of exported env vars (`gsed` on mac)
+
+from script:
+```
+$ sed -f replace.sed
+```
+
+individual commands:
+```
+$ sed -i "s/USERNAME/$USER/g" nginx.$SITENAME.conf gunicorn-$SITENAME.service logrotate.$SITENAME.conf
+$ sed -i "s/SITENAME/$SITENAME/g" nginx.$SITENAME.conf gunicorn-$SITENAME.service logrotate.$SITENAME.conf
+$ sed -i "s/PROJECTNAME/$PROJECTNAME/g" nginx.$SITENAME.conf gunicorn-$SITENAME.service logrotate.$SITENAME.conf
+```
+move the files:
+```
+$ sudo mv gunicorn-$SITENAME.service /etc/systemd/system/gunicorn-$SITENAME.service
+$ sudo mv nginx.$SITENAME.service /etc/nginx/sites-available/$SITENAME && ln -s /etc/nginx/sites-available/$SITENAME /etc/nginx/sites-enabled/$SITENAME
+$ sudo mv logrotate.$SITENAME.conf /etc/logrotate.d/$SITENAME
 ```
 
 ### installing Python 3.6.x
@@ -70,7 +99,7 @@ $ cd Python-3.6.9
 $ ./configure --with-ensurepip=install
 $ sudo make && sudo make install
 ```
-##### make python3.6.x the default
+##### make python3.6.x the default (optional)
 ```
 $ nano ~/.bashrc
 ```
@@ -128,31 +157,9 @@ postgres=# GRANT ALL PRIVILEGES ON DATABASE $myproject TO $myprojectuser;
 postgres=# \q
 ```
 
-#### setup nginx
-```
-$ cd ~/$SITENAME/tools/deploy
-$ sudo cp nginx.template.conf /etc/nginx/sites-available/nginx.template.conf
-$ cd /etc/nginx/sites-available
-$ sed -i "s/SITENAME/$SITENAME/g" nginx.template.conf
-$ sed -i "s/USERNAME/$USERNAME/g" nginx.template.conf
-$ sudo mv nginx.template.conf $SITENAME
-$ sudo ln -s /etc/nginx/sites-available/$SITENAME /etc/nginx/sites-enabled/$SITENAME
-```
-
 #### setup fail2ban
+*..coming soon*
 
-#### Getting an SSL certificate
-```
-$ sudo certbot --nginx -d $SITENAME
-```
-
-#### setup logrotate for gunicorn
-```
-$ cd ~/$SITENAME/tools/deploy
-$ sudo cp logrotate.template.conf /etc/logrotate.d/$SITENAME
-$ cd /etc/logrotate.d/$SITENAME
-$ sed -i "s/SITENAME/$SITENAME/g" logrotate.template.conf
-```
 #### setup virtualenv:
 ```
 $ pip install virtualenv
@@ -214,21 +221,28 @@ postgres=# ALTER USER username CREATEDB;
 postgres=# \q
 ```
 
-#### import existing data into database (optional)
-```
-(venv) $ python manage.py loaddata datadump.json --exclude=contenttypes --exclude=auth --exclude=home.ConsumeList --exclude=home.Spec --exclude=home.Rating --exclude=home.TreeAllotted --exclude=home.Consume
-```
-
 #### start the services
 ```
 $ sudo systemctl reload nginx
 $ sudo systemctl enable gunicorn-$SITENAME
 $ sudo systemctl start gunicorn-$SITENAME
 ```
-installing memcached: https://memcached.org/downloads
-memcached -d -s /tmp/memcached.sock // running memcache as a daemon and listening via socket
-memcached -d -p <port> // running memcache as a daemon and listening to custom port (defaults to port 11211)
 
-brew services start memcached // on macos with brew
+#### Getting an SSL certificate
+```
+$ sudo certbot --nginx -d $SITENAME
+```
+
+#### import existing data into database (optional)
+```
+(venv) $ python manage.py loaddata datadump.json --exclude=contenttypes --exclude=auth --exclude=home.ConsumeList --exclude=home.Spec --exclude=home.Rating --exclude=home.TreeAllotted --exclude=home.Consume
+```
+
+
+installing memcached: https://memcached.org/downloads
+`memcached -d -s /tmp/memcached.sock` // running memcache as a daemon and listening via socket
+`memcached -d -p <port>` // running memcache as a daemon and listening to custom port (defaults to port 11211)
+
+`brew services start memcached` // on macos with brew
 
 environment variables should be stored in the gunicorn service above the ExecStart and below the WorkingDirectory
