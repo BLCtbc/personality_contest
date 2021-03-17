@@ -7,13 +7,13 @@ Restart=on-failure
 
 User=USERNAME
 Group=www-data
-WorkingDirectory=/home/USERNAME/SITENAME
-Environment=DJANGO_SECRET_KEY=""
-Environment=DJANGO_INTERNAL_IPS=["127.0.0.1"]
-Environment=DISCORD_SECRET_KEY=""
-Environment=DISCORD_KEY=""
+WorkingDirectory=WORKINGDIRECTORY
+Environment=DJANGO_SECRET_KEY=''
+Environment=DJANGO_INTERNAL_IPS=['127.0.0.1']
+Environment=DISCORD_SECRET_KEY=''
+Environment=DISCORD_KEY=
 
-ExecStart=/home/USERNAME/SITENAME/venv/bin/gunicorn \
+ExecStart=WORKINGDIRECTORY/venv/bin/gunicorn \
         --bind unix:/tmp/SITENAME.socket \
         --access-logfile access.log \
         --error-logfile error.log \

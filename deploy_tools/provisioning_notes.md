@@ -28,18 +28,18 @@ Provisioning new site
 -
 
 #### install packages
-```
+```bash
 $ sudo apt-get install nginx memcached git certbot-nginx certbot fail2ban postgresql
 $ sudo aptitude install logrotate
 ```
 
 #### Environment variables for use with the sed command throughout setup
 
-`SITENAME` should be the actual website address and `PROJECTNAME` should be the name of the Django project
+`SITENAME` should be the actual website address and `PROJECTNAME` should be the name of the Django project folder
 
-```
-$ export SITENAME=www.example.com PROJECTNAME=website.com
-```
+```bash
+$ export SITENAME=personalitycontest PROJECTNAME=pcontest USERNAME=$(whoami) && export WD=~/sites/$SITENAME/$PROJECTNAME
+```<sup>*1</sup>
 test:
 ```
 $ echo $SITENAME
@@ -48,35 +48,30 @@ $ echo $SITENAME
 setup config files for nginx/gunicorn/logrotate:
 
 change folder and create copies
-```
+```bash
 $ cd ~/$SITENAME/deploy_tools
-$ sudo cp nginx.template.conf nginx.$SITENAME.conf && cp gunicorn-SITENAME.template.service gunicorn-$SITENAME.service && cp logrotate.template.conf logrotate.$SITENAME.conf
-```
-replaces occurrences of exported env vars (`gsed` on mac)
-
-from script:
-```
-$ sed -f replace.sed
+$ sudo cp nginx.template.conf nginx.$SITENAME.conf && cp gunicorn-SITENAME.service gunicorn-$SITENAME.service && cp logrotate.template.conf logrotate.$SITENAME.conf && cp replace.sed $PROJECTNAME.sed
 ```
 
-individual commands:
+replace occurrences of exported env vars:
+
+```bash
+$ sed -i -e s/USERNAME/$USERNAME/g -e s/SITENAME/$SITENAME/g -e s/PROJECTNAME/$PROJECTNAME/g -e s/WORKINGDIRECTORY/$WD/g nginx.$SITENAME.conf gunicorn-$SITENAME.service logrotate.$SITENAME.conf
 ```
-$ sed -i "s/USERNAME/$USER/g" nginx.$SITENAME.conf gunicorn-$SITENAME.service logrotate.$SITENAME.conf
-$ sed -i "s/SITENAME/$SITENAME/g" nginx.$SITENAME.conf gunicorn-$SITENAME.service logrotate.$SITENAME.conf
-$ sed -i "s/PROJECTNAME/$PROJECTNAME/g" nginx.$SITENAME.conf gunicorn-$SITENAME.service logrotate.$SITENAME.conf
-```
+
 move the files:
-```
+```bash
 $ sudo mv gunicorn-$SITENAME.service /etc/systemd/system/gunicorn-$SITENAME.service
 $ sudo mv nginx.$SITENAME.service /etc/nginx/sites-available/$SITENAME && ln -s /etc/nginx/sites-available/$SITENAME /etc/nginx/sites-enabled/$SITENAME
 $ sudo mv logrotate.$SITENAME.conf /etc/logrotate.d/$SITENAME
+$ rm $PROJECTNAME.sed
 ```
 
 ### installing Python 3.6.x
 
 ##### Raspbian (Originally followed [these instructions](https://installvirtual.com/install-python-3-on-raspberry-pi-raspbian/)):
 
-```
+```bash
 $ sudo apt-get update
 $ sudo apt-get install -y build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev
 $ wget https://www.python.org/ftp/python/3.6.11/Python-3.6.11.tgz
@@ -88,7 +83,7 @@ $ sudo make && sudo make install
 
 ##### Debian:
 
-```
+```bash
 $ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 libreadline-dev wget curl llvm libncurses5-dev libncursesw5-dev \
 xz-utils tk-dev libffi-dev liblzma-dev libreadline-gplv2-dev libgdbm-dev libc6-dev
@@ -100,7 +95,7 @@ $ ./configure --with-ensurepip=install
 $ sudo make && sudo make install
 ```
 ##### make python3.6.x the default (optional)
-```
+```bash
 $ nano ~/.bashrc
 ```
 add the following line:
@@ -108,23 +103,22 @@ add the following line:
 alias python='/usr/local/bin/python3.6'
 ```
 then source the .bashrc file:
-```
+```bash
 $ source ~/.bashrc
-
 ```
 test:
-```
+```bash
 $ python
 Python 3.6.8 (default, Mar 12 2021, 12:00:25)
 [GCC 6.3.0 20170516] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 ```
 ##### set python3.6.9 as default for  `python3` (old)
-```
+```bash
 $ sudo update-alternatives --install /usr/bin/python3 python3 ~/Python-3.6.9/python 10
 ```
 test:
-```
+
 $ python3
 Python 3.6.9 (default, Jul 18 2019, 15:22:48)
 [GCC 8.3.0] on linux
@@ -221,12 +215,14 @@ postgres=# ALTER USER username CREATEDB;
 postgres=# \q
 ```
 
-#### start the services
+#### (re)start nginx and start gunicorn
 ```
 $ sudo systemctl reload nginx
 $ sudo systemctl enable gunicorn-$SITENAME
 $ sudo systemctl start gunicorn-$SITENAME
 ```
+
+- check if nginx config properly `sudo nginx -t`
 
 #### Getting an SSL certificate
 ```
@@ -238,6 +234,12 @@ $ sudo certbot --nginx -d $SITENAME
 (venv) $ python manage.py loaddata datadump.json --exclude=contenttypes --exclude=auth --exclude=home.ConsumeList --exclude=home.Spec --exclude=home.Rating --exclude=home.TreeAllotted --exclude=home.Consume
 ```
 
+*NOTES*:
+1. Folder location may vary across different setups ie. `/home/user/sites/` vs `/var/www/`
+   Ensure the root folder is correct within the following files:
+    - nginx.$SITENAME.conf
+    - gunicorn-$SITENAME.service
+    - logrotate.$SITENAME.conf
 
 installing memcached: https://memcached.org/downloads
 `memcached -d -s /tmp/memcached.sock` // running memcache as a daemon and listening via socket
