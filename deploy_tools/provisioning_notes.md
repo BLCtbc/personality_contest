@@ -39,9 +39,11 @@ $ sudo aptitude install logrotate
 
 ```bash
 $ export SITENAME=personalitycontest PROJECTNAME=pcontest USERNAME=$(whoami) && export WD=~/sites/$SITENAME/$PROJECTNAME
-```<sup>*1</sup>
-test:
 ```
+<sup>1</sup>
+
+test:
+```bash
 $ echo $SITENAME
 ```
 ####
@@ -50,7 +52,7 @@ setup config files for nginx/gunicorn/logrotate:
 change folder and create copies
 ```bash
 $ cd ~/$SITENAME/deploy_tools
-$ sudo cp nginx.template.conf nginx.$SITENAME.conf && cp gunicorn-SITENAME.service gunicorn-$SITENAME.service && cp logrotate.template.conf logrotate.$SITENAME.conf && cp replace.sed $PROJECTNAME.sed
+$ sudo cp nginx.template.conf nginx.$SITENAME.conf && cp gunicorn-SITENAME.service gunicorn-$SITENAME.service && cp logrotate.template.conf logrotate.$SITENAME.conf
 ```
 
 replace occurrences of exported env vars:
@@ -59,12 +61,27 @@ replace occurrences of exported env vars:
 $ sed -i -e s/USERNAME/$USERNAME/g -e s/SITENAME/$SITENAME/g -e s/PROJECTNAME/$PROJECTNAME/g -e s/WORKINGDIRECTORY/$WD/g nginx.$SITENAME.conf gunicorn-$SITENAME.service logrotate.$SITENAME.conf
 ```
 
+get secret key and add lines containing it to gunicorn daemon and activate file (todo: generate new key):
+```bash
+$ export DJANGO_SECRET_KEY='' # copy paste from local venv/bin/activate or settings file if just started project
+$ echo DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY >> ../venv/bin/activate
+$ export DJANGO_SECRET_KEY=$(echo $DJANGO_SECRET_KEY | sed -e "s/\&/\\\&/g" -e "s/\$/\\\$/g" ) && sed -i "/Environment=DJANGO_SECRET_KEY=''/s/''/'$DJANGO_SECRET_KEY'/" gunicorn-ppcontest.service # adds escape char '\' in front of any & and $ chars within the secret key (special characters)
+
+$ sed -i "" "/Environment=DJANGO_SECRET_KEY=''/s/''/'$DJANGO_SECRET_KEY'/" gunicorn-ppcontest.service
+
+```
+
 move the files:
 ```bash
 $ sudo mv gunicorn-$SITENAME.service /etc/systemd/system/gunicorn-$SITENAME.service
-$ sudo mv nginx.$SITENAME.service /etc/nginx/sites-available/$SITENAME && ln -s /etc/nginx/sites-available/$SITENAME /etc/nginx/sites-enabled/$SITENAME
+$ sudo mv nginx.$SITENAME.service /etc/nginx/sites-available/$SITENAME
 $ sudo mv logrotate.$SITENAME.conf /etc/logrotate.d/$SITENAME
 $ rm $PROJECTNAME.sed
+```
+
+enable the web server (create symlink):
+```bash
+$ ln -s /etc/nginx/sites-available/$SITENAME /etc/nginx/sites-enabled/$SITENAME
 ```
 
 ### installing Python 3.6.x
