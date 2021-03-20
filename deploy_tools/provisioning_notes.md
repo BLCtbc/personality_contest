@@ -84,6 +84,17 @@ enable the web server (create symlink):
 $ ln -s /etc/nginx/sites-available/$SITENAME /etc/nginx/sites-enabled/$SITENAME
 ```
 
+tell nginx where to look for the socket:
+```
+./venv/bin/gunicorn --bind unix:/tmp/$SITENAME.socket $PROJECTNAME.wsgi:application
+```
+
+change ownership of certain files (pi only?)
+```
+$ chown -R $USER:www-data $WORKINGDIRECTORY/venv
+$ chown $root:root /etc/systemd/system/gunicorn-$SITENAME.service
+```
+
 ### installing Python 3.6.x
 
 ##### Raspbian (Originally followed [these instructions](https://installvirtual.com/install-python-3-on-raspberry-pi-raspbian/)):
