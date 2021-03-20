@@ -115,10 +115,12 @@ $ sudo make && sudo make install
 ```bash
 $ nano ~/.bashrc
 ```
-add the following line:
+
+add the following line to eof:
 ```
 alias python='/usr/local/bin/python3.6'
 ```
+
 then source the .bashrc file:
 ```bash
 $ source ~/.bashrc
@@ -134,8 +136,9 @@ Type "help", "copyright", "credits" or "license" for more information.
 ```bash
 $ sudo update-alternatives --install /usr/bin/python3 python3 ~/Python-3.6.9/python 10
 ```
-test:
 
+test:
+```bash
 $ python3
 Python 3.6.9 (default, Jul 18 2019, 15:22:48)
 [GCC 8.3.0] on linux
