@@ -293,14 +293,22 @@ footer {
 
 @media only screen and (max-width: 700px) {
     :root {
-        --bg-img-width: 550px;
+        --bg-img-width: 540px;
     }
 }
 
-@media only screen and (max-width: 600px) {
+
+@media only screen and (max-width: 576px){
+
+    #mailing_list_email {
+        width: 45%
+    }
+
     :root {
         --bg-img-width: 470px;
     }
+
+
 }
 
 @media only screen and (max-width: 500px) {

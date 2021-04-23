@@ -4,7 +4,9 @@
     width: 100%;
     background-size: cover;
     background-position: center;
-    /* border-top: 20px solid white; */
+    border-bottom: 5px solid #ffffff40;
+    border-top: 5px solid #ffffff40;
+    margin-bottom: 2rem;
 }
 
 
@@ -22,25 +24,16 @@
     font-size: 25px;
 }
 
-@media (min-width: 576px) {
-    #contact {
-        padding: 1.5rem;
-        margin-right: 0;
-        margin-left: 0;
-        border-width: 1px;
-        /* border-top-left-radius: .25rem; */
-        /* border-top-right-radius: .25rem; */
-    }
-}
+
 
 #contact {
     position: relative;
     padding: 1rem;
-    margin: 1rem -.75rem 0;
-    /* border-width: 1px 0 0; */
+    margin: auto;
     background: rgba(0, 0, 0, 0.5);
     font-weight: 500;
     color: white;
+    max-width: 650px;
 }
 
 #contact * .form-control {
@@ -49,4 +42,11 @@
 
 #contact > .form-row {
     padding: 5px 10px
+}
+
+@media (min-width: 576px) {
+    #contact {
+        padding: 1.5rem;
+        border-width: 1px;
+    }
 }
