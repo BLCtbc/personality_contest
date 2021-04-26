@@ -4,3 +4,4 @@ fabric3
 gunicorn==19.7.1
 psycopg2>=2.8.3
 selenium>=3.141.0
+argon2-cffi>=20.1.0
