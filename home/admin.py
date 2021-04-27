@@ -81,13 +81,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 class ShowAdmin(admin.ModelAdmin):
-    # The forms to add and change user instances
-    # form = UserChangeForm
-    # add_form = UserCreationForm
 
-    # The fields to be used in displaying the User model.
-    # These override the definitions on the base UserAdmin
-    # that reference specific fields on auth.User.
     list_display = ('city', 'state', 'venue', 'date', 'start')
     list_filter = ('city', 'state', 'date', 'venue')
     fieldsets = (
@@ -101,9 +95,23 @@ class ShowAdmin(admin.ModelAdmin):
     class Meta:
         model = Show
 
-admin_site = PersonalityContestAdminSite(name='admin')
+class EmailAdmin(admin.ModelAdmin):
+    # The forms to add and change user instances
+    # form = UserChangeForm
+    # add_form = UserCreationForm
+    readonly_fields = ('approved',)
+
+    list_display = ('subject', 'send_date', )
+    list_filter = ('approved',)
+
+    search_fields = ['subject',]
+    ordering = ['send_date',]
+    class Meta:
+        model = Email
+
+admin_site = PersonalityContestAdminSite()
 
 admin_site.register(Show, ShowAdmin)
 admin_site.register(User, UserAdmin)
 admin_site.register(Group, GroupAdmin)
-admin_site.register(Email)
+admin_site.register(Email, EmailAdmin)
