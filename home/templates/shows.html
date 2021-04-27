@@ -9,17 +9,28 @@
 {% endblock extra_css %}
 
 {% block main_content %}
-<div id="shows" class="container-fluid">
-    <h3>UPCOMING DATES:</h3>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+<table id="shows">
+    <thead>
+        <tr>
+            <th colspan="2"><h3>UPCOMING DATES:</h3></th>
+        </tr>
+    </thead>
     {% if shows.exists %}
+        <tbody>
         {% for show in shows %}
-        <div class="row">
-            <div class="col-lg-2 col-sm-3 col-5 show-date"><span>{{show.date}}</span></div>
-            <div class="col text-left">{{show.city}}, {{show.state}}@<i>{{show.venue}}</i></div>
-        </div>
+        <tr>
+            <td class="show-date"><span>{{show.date}}</span></td>
+            <td class="location">{{show.city}}, {{show.state}} @<i>{{show.venue}}</i></td>
+        </tr>
         {% endfor %}
+    </tbody>
     {% else %}
-    <h5> No upcoming shows. Sorry! I love you!</h5>
+    <p> No upcoming shows. Sorry! <i>I love you!</i></p>
     {% endif %}
+</table>
+</div>
 </div>
 {% endblock main_content %}

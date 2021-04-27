@@ -7,8 +7,6 @@ html {
     -webkit-font-smoothing: antialiased;
 }
 body {
-  /* min-height: 75rem; */
-  /* padding-top: 3.5rem; */
   font-family: "Gotham HTF", Helvetica, sans-serif;
   text-align: center;
   background-color: rgb(0, 0, 0);
@@ -80,16 +78,6 @@ li {
 .modal-open {
     overflow: unset;
 }
-
-/* #band_photo::after {
-     box-shadow: inset 3px 3px 10px 0 #000000;
-     content: '';
-     display: block;
-     position: absolute;
-     top: 100px;
-     width: 100%;
-     height: 100%;
-} */
 
 #music_links {
     padding: 50px 0;
@@ -177,6 +165,7 @@ footer {
     text-decoration: none;
     color: white;
     border-bottom: 1.4px solid rgba(255, 255, 255, 1);
+
 }
 
 .nav-link, .privacy-policy {
@@ -204,6 +193,7 @@ footer {
     border-radius: 13px;
 }
 
+
 .socials a {
     display: inline-block;
     margin-left: 4px;
@@ -214,8 +204,23 @@ footer {
     line-height: 26px;
     text-decoration: none !important;
     font-size: 16px;
-    transition: background-color .5s, color .5s, opacity .5s !important;
+    transition: background-color .3s, color .3s, opacity .3s;
     vertical-align: middle;
+}
+
+a.fa-bandcamp {
+    background-image: url("/static/img/bandcamp-circle-white/bandcamp-button-bc-circle-white-512.png");
+    background-size: contain;
+    transition: background-image ease-in-out 0.3s;
+}
+
+a.fa-bandcamp::before {
+    content: "";
+}
+
+a.fa-bandcamp:hover {
+    background-image: url("/static/img/bandcamp-circle-aqua/bandcamp-button-bc-circle-aqua-512.png");
+    background-size: contain;
 }
 
 .socials a:first-child{
@@ -225,21 +230,6 @@ footer {
 .socials a:hover {
     color: #fff;
     opacity: 1;
-}
-
-
-.fa-bandcamp {
-    background-image: url("/static/img/bandcamp-circle-white/bandcamp-button-bc-circle-white-512.png");
-    background-size: contain;
-}
-
-.fa-bandcamp::before {
-    content: "";
-}
-
-.fa-bandcamp:hover {
-    background-image: url("/static/img/bandcamp-circle-aqua/bandcamp-button-bc-circle-aqua-512.png");
-    background-size: contain;
 }
 
 .fa-facebook:hover {
@@ -360,10 +350,20 @@ footer {
     }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
     :root {
-        --bg-img-width: 650px;
+        --bg-img-width: 620px;
     }
+
+    a.nav-link {
+        padding: 0.5rem 1rem !important;
+        margin-right: 0;
+    }
+
+    a.nav-link:hover {
+        background-color: #ffffff40;
+    }
+
 }
 
 @media only screen and (max-width: 700px) {
@@ -382,8 +382,6 @@ footer {
     :root {
         --bg-img-width: 470px;
     }
-
-
 }
 
 @media only screen and (max-width: 500px) {

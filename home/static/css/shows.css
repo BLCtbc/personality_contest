@@ -11,43 +11,21 @@
     margin-bottom: 1.5rem;
 }
 
-.show-date {
+td.location {
     text-align: left;
-    padding-right: 0;
-    margin-bottom: 0.5rem;
-    margin-left: 40%;
+    padding-bottom: 0.5rem;
 }
 
 
-/* lg breakpoint */
-@media (max-width: 1400px) {
-    .show-date {
-        margin-left: 33%;
-    }
+td.show-date {
+    text-align: left;
+    padding-right: 20px;
+    padding-bottom: 0.5rem;
 }
 
-/* lg breakpoint */
-@media (max-width: 1280px) {
-    .show-date {
-        margin-left: 30%;
-    }
-}
 
-/* lg breakpoint */
-@media (max-width: 1080px) {
-    .show-date {
-        margin-left: 25%;
-    }
-}
-
-/* md breakpoint */
-@media (max-width: 768px) {
-    .show-date {
-        margin-left: 18%;
-    }
-}
-@media (max-width: 562px) {
-    .show-date {
-        margin-left: 0;
+@media only screen and (max-width: 768px) {
+    td.show-date {
+        padding-right: 10px;
     }
 }
