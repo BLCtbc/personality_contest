@@ -1,19 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
 from .managers import UserManager
 
 # from django.contrib import postgres.fields as postgres_fields
 
 
-# Create your models here.
 class User(AbstractUser):
 	username = None
 	email = models.EmailField(_('email address'), unique=True)
 	date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
 	is_active = models.BooleanField(_('active'), default=True)
-	notify = models.BooleanField(_('active'), default=True, help_text="Indicates whether or not the user will receive emails via mailing list")
-
+	notify = models.BooleanField(_('receive emails'), default=True, help_text="Indicates whether or not the user will receive emails via mailing list")
+	# age = models.PositiveIntegerField(blank=True, validators=[MaxValueValidator(150)])
 
 	objects = UserManager()
 	USERNAME_FIELD = 'email'
@@ -31,7 +31,12 @@ class Show(models.Model):
 	city = models.CharField(max_length=40)
 	state = models.CharField(max_length=20, help_text="State or Province")
 	venue = models.CharField(max_length=50)
-	# ages = postgres_fields.IntegerRangeField()
 
 	def __str__(self):
 		return "{}, from {} to {} @{} in {}".format(self.date, self.start, self.end, self.venue, self.city)
+
+class Email(models.Model):
+	subject = models.CharField(max_length=40)
+	body = models.TextField()
+	send_date = models.DateTimeField(help_text="Scheduled date and time the email should be sent")
+	approved = models.BooleanField(default=False, help_text="Must be approved by admin")

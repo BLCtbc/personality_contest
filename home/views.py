@@ -49,6 +49,9 @@ class LiveShowsView(TemplateView):
 		context = {'shows': Show.objects.all()}
 		return render(request, self.template_name, context)
 
+class MerchView(TemplateView):
+	template_name = "merch.html"
+
 def add_user_to_mailing_list(request):
 	status_code = 400 #set to 400 once view is complete
 	data,created = {},False
