@@ -1,7 +1,7 @@
 Provisioning new site
 ===============================
 
-## Prereqs
+## Pre reqs
 
 * nginx
 * python 3.6.x (django, gunicorn, virtualenv)
@@ -14,6 +14,8 @@ Provisioning new site
 
 ## setup (unordered)
 
+- instantiate AWS ec2 instance (Debian)
+	- use auto generated security group rules (issues logging in with ssh otherwise)
 - install various essential packages/libraries (nginx, python3.6.x, memcached)
 - setup virtual env
 - set SITENAME, USERNAME, and PROJECTNAME env vars in venv source file (typically here: /venv/bin/activate) or set them as an environment var using bash `$ export var=123`
