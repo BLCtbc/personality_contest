@@ -4,7 +4,7 @@ Provisioning new site
 ## Pre reqs
 
 * nginx
-* python 3.6.x (django, gunicorn, virtualenv)
+* python 3.7.x (django, gunicorn, virtualenv)
 * memcached
 * Git
 * certbot (SSL encryption)
@@ -34,6 +34,24 @@ Provisioning new site
 $ sudo apt-get install nginx memcached git certbot-nginx certbot fail2ban postgresql
 $ sudo aptitude install logrotate
 ```
+
+### setting up and connecting via ssh
+Your key must not be publicly viewable for SSH to work. Use this command if needed:
+`$ chmod 400 PERSONALITY_CONTEST.cer`
+
+`$ ssh -i "PERSONALITY_CONTEST.cer" root@ec2-35-174-50-31.compute-1.amazonaws.com`
+
+### firewall setup
+
+`$ sudo ufw enable`
+`$ sudo ufw allow OpenSSH`
+
+`$ sudo ufw allow 'Nginx Full'`
+note: if you get an error when attempting to add Nginx Full to the firewall, you might need to install nginx first:
+`$ sudo apt install nginx`
+
+#### getting ssh key pair for pushing to github
+follow instructions [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
 #### Environment variables for use with the sed command throughout setup
 

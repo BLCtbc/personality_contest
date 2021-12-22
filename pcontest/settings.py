@@ -1,15 +1,20 @@
-import os
+import os, environ
+
+# Setting Environment Variables
+env = environ.Env()
+environ.Env.read_env()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+SECRET_KEY = env.str('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = [os.environ['DJANGO_LOCAL'], os.environ['DJANGO_LOCAL2'], os.environ['NETWORK_IP'], 'personalitycontest.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
 
 
 # Application definition
@@ -33,6 +38,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# if DEBUG:
+#     INSTALLED_APPS.append('debug_toolbar')
+#     MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+#     INTERNAL_IPS = ('127.0.0.1', 'localhost')
 
 ROOT_URLCONF = 'pcontest.urls'
 
