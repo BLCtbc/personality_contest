@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% block extra_styles %}
-<link media='screen, print' rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
-{% endblock extra_styles %}
 
 {% block splash %}
 {{block.super}}
@@ -34,3 +31,7 @@
 {% endblock main_content %}
 {% block band_bio %}
 {% endblock band_bio %}
+
+{% block extra_js %}
+<script src="{% static "js/index.js" %}"></script>
+{% endblock extra_js %}

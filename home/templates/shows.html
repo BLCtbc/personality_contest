@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Upcoming Shows</title>
+{% endblock title %}
+
+{% block extra_css %}
+<link media='screen, print' rel="stylesheet" type="text/css" href="{% static "css/shows.css" %}">
+{% endblock extra_css %}
+
+{% block main_content %}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+<table id="shows">
+    <thead>
+        <tr>
+            <th colspan="2"><h3>UPCOMING DATES:</h3></th>
+        </tr>
+    </thead>
+    {% if shows.exists %}
+        <tbody>
+        {% for show in shows %}
+        <tr>
+            <td class="show-date"><span>{{show.date}}</span></td>
+            <td class="location">{{show.city}}, {{show.state}} @<i>{{show.venue}}</i></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% else %}
+    <p> No upcoming shows. Sorry! <i>I love you!</i></p>
+    {% endif %}
+</table>
+</div>
+</div>
+{% endblock main_content %}

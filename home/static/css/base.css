@@ -1,23 +1,22 @@
-
-:root{
+:root {
     --bg-img-width: 1200px;
 }
 
 html {
     -webkit-font-smoothing: antialiased;
 }
-body {
-  min-height: 75rem;
-  /* padding-top: 3.5rem; */
-  font-family: "Gotham HTF", Helvetica, sans-serif;
-  text-align: center;
-  background-color: rgb(0, 0, 0);
 
+body {
+    font-family: "Gotham HTF", Helvetica, sans-serif;
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    color: white;
 }
 
 input {
     font-family: Helvetica;
 }
+
 main {
     background: repeating-linear-gradient(#0202521c, #3b056d26, #0202521c 25%);
 }
@@ -26,10 +25,75 @@ main button {
     border-radius: 1px;
 }
 
+li {
+    list-style: none;
+}
+
+.image {
+    margin: -100px 0;
+}
+
+.img-frame {
+    display: inline-block;
+    overflow: hidden;
+    width: 800px;
+    height: 600px;
+    border: 10px solid #000;
+}
+
+.jumbotron {
+    background-color: unset;
+}
+
+#email_signup_modal * {
+    border-radius: 1px;
+}
+
+#email_signup_modal .modal-content {
+    outline: 20px solid whitesmoke;
+    background-image: url("../img/dat_boi.gif");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 4px solid rgba(0, 0, 0, 0.2);
+}
+
+#email_signup_modal .modal-header {
+    border-bottom: none;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+#email_signup_modal .modal-footer {
+    border-top: none;
+    margin: 0.75rem padding: none;
+}
+
+#email_signup_modal .modal-dialog {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+}
+
+/* allows scrolling and prevents background dark when modal opens */
+.modal-open {
+    overflow: unset;
+}
+
+#music_links {
+    padding: 50px 0;
+}
+
+.spotify {
+    border-color: whitesmoken;
+    border-style: outset;
+    margin: 10px 0;
+}
+
 @font-face {
     font-family: 'FontAwesome';
     src: url('../fonts/fontawesome-webfont.eot?v=4.7.0');
-    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),url('../fonts/fontawesome-webfont.woff2') format('woff2'),url('../fonts/fontawesome-webfont.woff') format('woff'),url('../fonts/fontawesome-webfont.ttf') format('truetype'),url('../fonts/fontawesome-webfont.svg') format('svg');
+    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2') format('woff2'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.ttf') format('truetype'), url('../fonts/fontawesome-webfont.svg') format('svg');
     font-weight: normal;
     font-style: normal
 }
@@ -55,11 +119,11 @@ main button {
     font-style: normal;
 }
 
-
 @media (min-width: 768px) {
     .nav-item:first-child {
         margin-left: 120px;
     }
+
     footer {
         font-size: 13px;
         /* line-height: 2em; */
@@ -71,23 +135,22 @@ nav {
     background-color: rgba(0, 0, 0, 0.9);
     color: azure;
     border-bottom: 5px solid wheat;
-
 }
+
 footer {
     color: white;
     text-align: start;
-    padding: 50px 0 !important;
-    margin: 40px 0;
+    padding: 1.25rem 0 !important;
+    margin: 1.25rem 0;
     /* background-color: rgba(3, 11, 21, 1); */
     /* box-shadow: 0 3px 5px 4px #80757500, 0 4px 7px 4px #ffc50047; */
-
 }
 
 .navbar {
     padding: 0.25rem 0.5rem;
 }
 
-.navbar-nav * a{
+.navbar-nav * a {
     padding: 0 !important;
     font-weight: 700;
     margin-right: 15px;
@@ -98,7 +161,7 @@ footer {
     text-transform: uppercase;
 }
 
-.privacy-policy:hover,  .nav-link:hover {
+.privacy-policy:hover, .nav-link:hover {
     text-decoration: none;
     color: white;
     border-bottom: 1.4px solid rgba(255, 255, 255, 1);
@@ -110,21 +173,22 @@ footer {
     border-bottom: 1.4px solid rgba(255, 255, 255, 0);
     transition: border-color 333ms ease;
 }
+
 /* .nav-link:hover {
     border-bottom: 1.4px solid rgba(255, 255, 255, 1);
 } */
-
 .music-links-item {
     display: inline-block;
     vertical-align: top;
     margin-left: 10px;
     margin-bottom: 10px;
 }
+
 .music-links-item:first-child {
     margin-left: 0;
 }
 
-.socials.circles a{
+.socials.circles a {
     -webkit-border-radius: 13px;
     border-radius: 13px;
 }
@@ -139,11 +203,26 @@ footer {
     line-height: 26px;
     text-decoration: none !important;
     font-size: 16px;
-    transition: background-color .5s, color .5s, opacity .5s !important;
+    transition: background-color .3s, color .3s, opacity .3s;
     vertical-align: middle;
 }
 
-.socials a:first-child{
+a.fa-bandcamp {
+    background-image: url("/static/img/bandcamp-circle-white/bandcamp-button-bc-circle-white-512.png");
+    background-size: contain;
+    transition: background-image ease-in-out 0.3s;
+}
+
+a.fa-bandcamp::before {
+    content: "";
+}
+
+a.fa-bandcamp:hover {
+    background-image: url("/static/img/bandcamp-circle-aqua/bandcamp-button-bc-circle-aqua-512.png");
+    background-size: contain;
+}
+
+.socials a:first-child {
     margin-left: 0;
 }
 
@@ -152,30 +231,18 @@ footer {
     opacity: 1;
 }
 
-
-.fa-bandcamp {
-    background-image: url("/static/img/bandcamp-circle-white/bandcamp-button-bc-circle-white-512.png");
-    background-size: contain;
-}
-
-.fa-bandcamp::before {
-    content: "";
-}
-
-.fa-bandcamp:hover {
-    background-image: url("/static/img/bandcamp-circle-aqua/bandcamp-button-bc-circle-aqua-512.png");
-    background-size: contain;
-}
-
 .fa-facebook:hover {
     background-color: #4A73C9;
 }
+
 .fa-twitter:hover {
     background-color: #00A0D1;
 }
+
 .fa-instagram:hover {
     background-color: #3F729B;
 }
+
 .fa-soundcloud:hover {
     background-color: #f34a07;
 }
@@ -247,12 +314,12 @@ footer {
         inset 1px 3px 10px 2px #000000,
         inset 1px 1px 6px 2px #000000,
         inset 1px 1px 20px 7px #000000;
-     content: '';
-     display: block;
-     position: absolute;
-     top: 100px;
-     width: var(--bg-img-width);
-     height: var(--bg-img-width);
+    content: '';
+    display: block;
+    position: absolute;
+    top: 100px;
+    width: var(--bg-img-width);
+    height: var(--bg-img-width);
 }
 
 .image {
@@ -285,9 +352,18 @@ footer {
     }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
     :root {
-        --bg-img-width: 650px;
+        --bg-img-width: 620px;
+    }
+
+    a.nav-link {
+        padding: 0.5rem 1rem !important;
+        margin-right: 0;
+    }
+
+    a.nav-link:hover {
+        background-color: #ffffff40;
     }
 }
 
@@ -297,9 +373,7 @@ footer {
     }
 }
 
-
-@media only screen and (max-width: 576px){
-
+@media only screen and (max-width: 576px) {
     #mailing_list_email {
         width: 45%
     }
@@ -307,8 +381,6 @@ footer {
     :root {
         --bg-img-width: 470px;
     }
-
-
 }
 
 @media only screen and (max-width: 500px) {
