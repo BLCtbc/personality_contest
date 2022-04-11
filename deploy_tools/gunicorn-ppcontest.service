@@ -1,0 +1,18 @@
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+Environment=DJANGO_SECRET_KEY='-_#gc#9!$4ze3=zdayiyfcdgs!lf+q$$ptyq2=hq08+5u-2&@v'
+Environment=ALLOWED_HOSTS='127.0.0.1','35.174.50.31','personalitycontest.band'
+Environment=DEBUG=on
+User=admin
+Group=www-data
+WorkingDirectory=/home/admin/personality_contest
+ExecStart=/home/admin/personality_contest/venv/bin/gunicorn \
+--access-logfile - \
+--workers 3 \
+--bind unix:/run/gunicorn.sock \
+pcontest.wsgi:application
